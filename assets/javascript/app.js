@@ -9,9 +9,9 @@ var unanswered = 0;
 var num = 0;
 var time = 0;
 var timer;
-var images = ["../assets/images/king.gif", "../assets/images/pen-name.gif", "../assets/images/wife.gif",
-"../assets/images/carrie.gif", "../assets/images/pages.gif", "../assets/images/shawshank.gif", 
-"../assets/images/horns.gif", "../assets/images/pitch.gif", "../assets/images/college.gif", "../assets/images/christine.gif"];
+var images = ["assets/images/king.gif", "assets/images/pen-name.gif", "assets/images/wife.gif",
+"assets/images/carrie.gif", "assets/images/pages.gif", "assets/images/shawshank.gif", 
+"assets/images/horns.gif", "assets/images/pitch.gif", "assets/images/college.gif", "assets/images/christine.gif", "assets/images/done.gif"];
 
 //this is a list of questions, answers, and the correct answer. Fake ones for now.
 var questions = [
@@ -119,6 +119,7 @@ function start(){
 function ask(){
     $("#start").html("");
     $("#solution").html("");
+    $("#gif").html("");
     
     time = 30;
 
@@ -173,11 +174,13 @@ function choice(c){
         clear();
         clearInterval(timer);
         $("#solution").html(`<h2>Correct!</h2>`);
+        $("#gif").html(`<img src=${images[num]} alt="answer">`);
         correct++;
     }else{
         clear();
         clearInterval(timer);
         $("#solution").html(`<h2>Nope!</h2> </br> <h2>The correct answer was: ${questions[num].correctA}!</h2>`);
+        $("#gif").html(`<img src=${images[num]} alt="answer">`);
         incorrect++;
     }
     if (num < questions.length-1) {
@@ -185,6 +188,7 @@ function choice(c){
         num++;
         setTimeout(ask, 4000);
     }else{
+        num++;
         console.log("again");
         setTimeout(again, 4000);
     }
@@ -203,6 +207,7 @@ function again(){
     <h2>Correct: ${correct}</h2>
     <h2>Incorrect: ${incorrect}</h2>
     <h2>Unanswered: ${unanswered}</h2>`);
+    $("#gif").html(`<img src=${images[num]} alt="answer">`);
     $("#solution").html("");
     $("#restart").html(`<button type="button" class="btn btn-primary btn-lg">Try Again?</button>`);
     $("#restart").on("click", start);
