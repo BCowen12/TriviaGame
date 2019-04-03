@@ -155,6 +155,7 @@ function count(){
 function timeout(){
     clearInterval(timer);
     $("#solution").html(`<h2>You ran out of time!!!</h2> </br> <h2>The correct answer was: ${questions[num].correctA}!</h2>`);
+    $("#gif").html(`<img src=${images[num]} alt="answer">`);
     if (num < questions.length) {
         num++;
         unanswered++;
