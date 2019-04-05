@@ -19,7 +19,7 @@ var questions = [
         q: "What is Stephen King's middle name?",
         a1: "Samuel",
         a2: "Edwin",
-        a3: "Tommas",
+        a3: "Thomas",
         a4: "Stephen",
         aIndex: "1",
         correctA: "Edwin"
@@ -52,10 +52,10 @@ var questions = [
         correctA: "Carrie"
     },
     {
-        q: "According to Time Magazine what is Stephen King's longest book at 1,153 pages?",
-        a1: "It",
+        q: "According to Time Magazine, what is Stephen King's longest book at 1,153 pages?",
+        a1: "Insomnia",
         a2: "Under the Dome",
-        a3: "Insomnia",
+        a3: "It",
         a4: "The Stand",
         aIndex: "3",
         correctA: "The Stand"
@@ -124,15 +124,15 @@ function ask(){
     time = 30;
 
     //set the question
-    $("#question").html(`<h2>${questions[num].q}</h2>`);
+    $("#question").html(`<h1>${questions[num].q}</h1>`);
 
     //set the answers
-    $("#q1").html(`<h2 class=ans value="0">${questions[num].a1}</h2>`);
-    $("#q2").html(`<h2 class=ans value="1">${questions[num].a2}</h2>`);
-    $("#q3").html(`<h2 class=ans value="2">${questions[num].a3}</h2>`);
-    $("#q4").html(`<h2 class=ans value="3">${questions[num].a4}</h2>`);
+    $("#q1").html(`<h3 class=ans value="0">${questions[num].a1}</h3>`);
+    $("#q2").html(`<h3 class=ans value="1">${questions[num].a2}</h3>`);
+    $("#q3").html(`<h3 class=ans value="2">${questions[num].a3}</h3>`);
+    $("#q4").html(`<h3 class=ans value="3">${questions[num].a4}</h3>`);
     
-    $("#time").html(`<h2>Time Remaining: ${time} Seconds</h2>`);
+    $("#time").html(`Time Remaining: ${time} Seconds`);
 
     $(".ans").on("click", choice);
     
@@ -145,7 +145,7 @@ function ask(){
 function count(){
     if(time > 0){
         time --;
-        $("#time").html(`<h2>Time Remaining: ${time} Seconds</h2>`);
+        $("#time").html(`Time Remaining: ${time} Seconds`);
     } else{
         clear();
         timeout();
@@ -155,43 +155,40 @@ function count(){
 function timeout(){
     clearInterval(timer);
     $("#solution").html(`<h2>You ran out of time!!!</h2> </br> <h2>The correct answer was: ${questions[num].correctA}!</h2>`);
-    $("#gif").html(`<img src=${images[num]} alt="answer">`);
-    if (num < questions.length) {
+    $("#gif").html(`<img src=${images[num]} alt="answer" id="pic">`);
+    if (num < questions.length-1) {
         num++;
         unanswered++;
-        setTimeout(ask, 4000);
+        setTimeout(ask, 5000);
     }else{
+        num++;
         unanswered++;
-        setTimeout(again, 4000);
+        setTimeout(again, 5000);
     }
     
 }
 
 function choice(c){
     var value = $(this).attr("value");
-    console.log(this);
-    console.log(questions[num].aIndex);
     if(value === questions[num].aIndex){
         clear();
         clearInterval(timer);
         $("#solution").html(`<h2>Correct!</h2>`);
-        $("#gif").html(`<img src=${images[num]} alt="answer">`);
+        $("#gif").html(`<img src=${images[num]} alt="answer" id="pic">`);
         correct++;
     }else{
         clear();
         clearInterval(timer);
         $("#solution").html(`<h2>Nope!</h2> </br> <h2>The correct answer was: ${questions[num].correctA}!</h2>`);
-        $("#gif").html(`<img src=${images[num]} alt="answer">`);
+        $("#gif").html(`<img src=${images[num]} alt="answer" id="pic">`);
         incorrect++;
     }
     if (num < questions.length-1) {
-        console.log("ask");
         num++;
-        setTimeout(ask, 4000);
+        setTimeout(ask, 5000);
     }else{
         num++;
-        console.log("again");
-        setTimeout(again, 4000);
+        setTimeout(again, 5000);
     }
 }
 
@@ -208,7 +205,7 @@ function again(){
     <h2>Correct: ${correct}</h2>
     <h2>Incorrect: ${incorrect}</h2>
     <h2>Unanswered: ${unanswered}</h2>`);
-    $("#gif").html(`<img src=${images[num]} alt="answer">`);
+    $("#gif").html(`<img src=${images[num]} alt="answer" id="pic">`);
     $("#solution").html("");
     $("#restart").html(`<button type="button" class="btn btn-primary btn-lg">Try Again?</button>`);
     $("#restart").on("click", start);
