@@ -46,6 +46,7 @@ button{
 #answers{
     position: relative;
     clear: both;
+    cursor: pointer; 
 }
 
 #pic{
